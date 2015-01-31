@@ -1,4 +1,4 @@
-package monthquestion;
+package marchexquestion;
 
 /*
  * Marchex Month apart problem 

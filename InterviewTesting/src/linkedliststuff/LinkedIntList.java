@@ -4,7 +4,7 @@ package linkedliststuff;
 
 public class LinkedIntList {
 	private static final int BASE_OF_INTEGER = 10;
-	private ListNode front;
+	protected ListNode front;
     public static LinkedIntList sumToReverse(LinkedIntList L1,
     		LinkedIntList L2) {
     	int sum = L1.convReverse() + L2.convReverse();
