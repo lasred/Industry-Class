@@ -8,6 +8,7 @@ import java.util.Stack;
  */
 public class FastMinStack<T extends Comparable<T>>
 {
+	
 	public static void main(String[] args) {
 		FastMinStack<Integer> stack = new FastMinStack<Integer>();
 		stack.Push(2);

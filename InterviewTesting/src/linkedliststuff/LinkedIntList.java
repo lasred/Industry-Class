@@ -1,9 +1,13 @@
 package linkedliststuff;
 
+import java.util.HashSet;
+import java.util.Set;
+
 // Simple version of LinkedIntList with the appending add method
 
 public class LinkedIntList {
 	private static final int BASE_OF_INTEGER = 10;
+	protected int size;
 	protected ListNode front;
     public static LinkedIntList sumToReverse(LinkedIntList L1,
     		LinkedIntList L2) {
@@ -14,6 +18,41 @@ public class LinkedIntList {
     		sum = sum / 10;
     	} while(sum > 0);
     	return list;
+    }
+  
+    public boolean isCycle() { 
+    	return startOfCycle() != -999;
+    }
+    public int startOfCycle() {
+    	//no cycle in empty list....
+    	if(front!=null) {
+    		//two pointers, one travels faster, one travels lower
+    		ListNode slowPointer = front;
+    		ListNode fastPointer = front;
+    		//until fastPointer reaches the end if there is an end
+    		while(fastPointer.next!=null&&fastPointer.next.next!=null) {
+    			//increment both these fuckors
+    			slowPointer = slowPointer.next;
+    			fastPointer = fastPointer.next.next;
+    			if(slowPointer == fastPointer) {
+    				//slowPointer will now be the front of the list
+    				slowPointer = front;
+    				break;
+    			}
+    		}
+    		if(fastPointer.next == null || fastPointer.next.next == null) {
+    			//no cycle
+    			return -999;
+    		} else {
+    			while(slowPointer != fastPointer){
+    				slowPointer = slowPointer.next;
+    				fastPointer = fastPointer.next;
+    			}
+    			return slowPointer.data;
+    		}
+    		
+    	}
+    	return -999;
     }
     public int convReverse() {
     	int curr = 0;

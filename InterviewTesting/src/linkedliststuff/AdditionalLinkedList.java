@@ -1,5 +1,8 @@
 package linkedliststuff;
 
+import java.util.HashSet;
+import java.util.Set;
+
 public class AdditionalLinkedList extends LinkedIntList{
 	public boolean equals(AdditionalLinkedList other) {
 		ListNode curr1 = front;
@@ -11,6 +14,34 @@ public class AdditionalLinkedList extends LinkedIntList{
 			}
 		}
 		return curr1 == null && curr2 == null;
+	}
+	public int converge(LinkedIntList other){
+		if(front == null || other.front == null) {
+			//no way they converge
+			return -999;
+		} else if(front == other.front) {
+			return front.data;
+		}else {
+			ListNode pointer1 = front;
+			ListNode pointer2 = other.front;
+			for (;;) {
+				if(pointer1 == pointer2) 
+					return pointer1.data;
+				//some while loop 
+				//reach the end of the journey 
+				if(pointer1.next==null) {
+					pointer1 = other.front;
+				} else {
+					pointer1 = pointer1.next;
+				}
+				if(pointer2.next == null) {
+					pointer2 = front;
+				} else {
+					pointer2 = pointer2.next;
+				}
+			}
+			
+		}
 	}
 	
 	public void rotate() {
