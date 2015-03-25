@@ -2,6 +2,7 @@ package binarytreestuff;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.NoSuchElementException;
 
 
 public class IntTree {
@@ -10,7 +11,111 @@ public class IntTree {
 	public IntTree() {
 		overallRoot = null;
 	}
+	public int secondMaximum() {
+		return secondMaximum(overallRoot);
+	}
+	private boolean isLeaf(IntTreeNode root) {
+		return root.left == null && root.right == null;
+	} 
+	private int secondMaximum(IntTreeNode root) {
+		if(root == null || isLeaf(root))
+			throw new NoSuchElementException();
+		if(root.right == null) {
+			return findMax(root.left);
+		} else {
+			return findSecondGreatest(root);
+		}
+	}
+	private int findSecondGreatest(IntTreeNode root) {
+		//know that originally root.right is not null
+		if(root.right.right == null) 
+			if(root.right.left == null) {
+				return root.data;
+			}else {
+				return findMax(root.right.left);
+			}
+		else 
+			return findSecondGreatest(root.right);
+	}
+	private int findMax(IntTreeNode root) {
+		//know that root is not null, from De Morgan's Law, left is not null
+		if(root.right == null)
+			return root.data;
+		else 
+			return findMax(root.right);
+	}
+	public void printLevel(int n) {
+		System.out.print("Level " + n +":");
+		printLevel(overallRoot, n);
+		System.out.println();
+	}
 	
+	private void printLevel(IntTreeNode root, int i) {
+		if(root != null) {
+			if(i== 0) {
+				System.out.print(" " + root.data);
+			} else {
+				printLevel(root.left, i - 1);
+				printLevel(root.right, i - 1);
+			}
+		}
+		
+	}
+
+	public boolean isBst() {
+		if(overallRoot == null) {
+			return true;
+		} else {
+			if((overallRoot.left != null && overallRoot.left.data > overallRoot.data)
+					||(overallRoot.right != null && overallRoot.right.data < overallRoot.data))
+				return false;				
+			return isBst(overallRoot.left, overallRoot.data, true) &&
+					 isBst(overallRoot.right,overallRoot.data, false);
+		}	
+	}
+	private boolean isBst(IntTreeNode root, int grandDaddy, boolean isLeftSub) {
+		if(root == null) {
+			return true;
+		} else {
+			if((root.left != null && root.left.data > root.data)
+					||(root.right != null && root.right.data < root.data))
+				return false;
+			if(isLeftSub) {
+				//violate any rules of being a left subtree?
+				if((root.left != null && root.left.data > grandDaddy)
+				||(root.right != null && root.right.data > grandDaddy)) 
+					return false;
+				return isBst(root.left, root.data, true) && 
+						isBst(root.right, grandDaddy, true) &&
+						isBst(root.right, root.data, false);
+				
+			} else {
+				//violate any rules of being a right subtree
+				if((root.left != null && root.left.data < grandDaddy)
+					||(root.right != null && root.right.data < grandDaddy)) 
+							return false;
+				return isBst(root.right, root.data, false) &&
+						isBst(root.left, root.data, true) &&
+						isBst(root.left, grandDaddy, false);
+			}
+		}
+	}
+	public static void main(String[] args) {
+		IntTree tree = new IntTree();
+		IntTreeNode node1 = new IntTreeNode(10);
+		IntTreeNode node2 = new IntTreeNode(20);
+		IntTreeNode node3 = new IntTreeNode(11);
+		IntTreeNode node4 = new IntTreeNode(22);
+		IntTreeNode node5 = new IntTreeNode(9);
+		IntTreeNode node6 = new IntTreeNode(21);
+
+		tree.overallRoot = node1;
+		node1.right = node2;
+		node2.left = node3;
+		node2.right = node4;
+		node3.right = node6;
+		System.out.println(tree.isBst());
+	}
 	public void add(int number) {
 		overallRoot = add(overallRoot, number);
 	}

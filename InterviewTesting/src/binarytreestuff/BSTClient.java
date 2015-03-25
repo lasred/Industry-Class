@@ -14,12 +14,10 @@ public class BSTClient {
 	         System.out.print("Next int (0 to quit)? ");
 	         number = console.nextInt();
 	     }
-	     List<Integer> largestPath = numbers.largestSumFromRootPath();
-	     int sum = 0;
-	     for(int i=0;i<largestPath.size();i++) {
-	    	 sum += largestPath.get(i);
-	     }
-	     numbers.printPostOrder();
+	     System.out.println("Second greatest value: "  + numbers.secondLargest());
+//	     for(int count=0;count<=4;count++) {
+//	    	 numbers.printLevel(count);
+//	     }
 //	     System.out.println("The path to the largest sum is " + largestPath +" and the "
 //	     		+ "largest sum is actually " + sum);
 //	     numbers.secondLargest());
