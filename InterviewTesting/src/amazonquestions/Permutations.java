@@ -9,19 +9,17 @@ import java.util.Set;
 
 public class Permutations {
 
-	public static List<Set<Integer>> subsets(Set<Integer> s) {
+	public static void subsets(Set<Integer> s) {
 		Queue<Integer> copyToProtectData  = new LinkedList<Integer>();
 		for(int member: s) {
 			copyToProtectData.add(member);
 		}
-		List<Set<Integer>> subsets = new ArrayList<Set<Integer>>();
-		generateSubsets(copyToProtectData, subsets, new HashSet<Integer>());
-		return subsets;
+		generateSubsets(copyToProtectData, new HashSet<Integer>());
 	}
 	private static void generateSubsets(Queue<Integer> s, 
-			List<Set<Integer>> subsets, Set<Integer> hashSet) {
+			 Set<Integer> hashSet) {
 		if(s.isEmpty()) {
-			subsets.add(hashSet);
+			System.out.println(hashSet);
 		} else {
 			//no need to backtrack
 			int member = s.remove();
@@ -36,9 +34,9 @@ public class Permutations {
 			for(int i:s){
 				queueCopy.add(i);
 			}
-			generateSubsets(s, subsets, hashSet);
+			generateSubsets(s, hashSet);
 			//the one that doesn't have the element
-			generateSubsets(queueCopy, subsets, copy);			
+			generateSubsets(queueCopy, copy);			
 		}
 	}
 	public static void generatePerm(String s) {
@@ -98,21 +96,20 @@ public class Permutations {
 		return true;
 	}
 	public static void main(String[] args) {
-		List<String> words = new ArrayList<String>();
-		words.add("rapes");
-		words.add("rate!");
-		words.add("chris");
-		words.add("blazer");
-		words.add("ta!er");
-		words.add("cates");
-		words.add("!tare");
-		System.out.println(indexOfAnagrams(words, "tear!"));
-//		Set<Integer> set = new HashSet<Integer>();
-//		set.add(1);
-//		set.add(2);
-//		set.add(3);
-//		List<Set<Integer>> subsets = subsets(set);
-//		for(Set<Integer> subset: subsets) 
-//			System.out.println(subset);
+//		List<String> words = new ArrayList<String>();
+//		words.add("rapes");
+//		words.add("rate!");
+//		words.add("chris");
+//		words.add("blazer");
+//		words.add("ta!er");
+//		words.add("cates");
+//		words.add("!tare");
+//		System.out.println(indexOfAnagrams(words, "tear!"));
+		Set<Integer> set = new HashSet<Integer>();
+		set.add(1);
+		set.add(2);
+		set.add(3);
+		subsets(set);
+	
 	}
 }

@@ -14,7 +14,9 @@ public class BSTClient {
 	         System.out.print("Next int (0 to quit)? ");
 	         number = console.nextInt();
 	     }
-	     System.out.println("Second greatest value: "  + numbers.secondLargest());
+	     numbers.printByLevel();
+	     console.close();
+	    // System.out.println("Second greatest value: "  + numbers.secondLargest());
 //	     for(int count=0;count<=4;count++) {
 //	    	 numbers.printLevel(count);
 //	     }

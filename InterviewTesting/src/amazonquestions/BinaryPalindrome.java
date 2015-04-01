@@ -42,9 +42,10 @@ public class BinaryPalindrome {
 		String binaryRep = "";
 		do {
 			//do while to take care of 0
-			binaryRep += n%2;
+			binaryRep = n%2 + binaryRep;
 			n = n/2;
 		}while(n>0);
+		System.out.println(binaryRep);
 		for(int i=0;i<binaryRep.length()/2;i ++) {
 			//take care of palindromes
 			if(binaryRep.charAt(i) != 
@@ -54,7 +55,6 @@ public class BinaryPalindrome {
 		return true;
 	}
 	public static void main(String[] args) {
-		System.out.println(isBinaryPalindrome(2));
-		System.out.println(getAllComb(3));
+		System.out.println(isBinaryPalindrome(12));
 	}
 }

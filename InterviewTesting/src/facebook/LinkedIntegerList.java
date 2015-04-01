@@ -21,20 +21,51 @@ public class LinkedIntegerList {
 		node5.next = node6;
 		list.front = merge(node1, node4);
 		printList(list.front);
-		list = new LinkedIntegerList();
-		list.front = new ListNode(80);
-		addElements(list.front, 20);
-		System.out.print("Before merge sort: ");
+		list.printReverseSpace();
+		list.printReverseConstantSpace();
 		printList(list.front);
-		if(!list.isSorted()){
-			System.out.println("This list is not sorted yet");
+	}
+	//O(n) time O(1) space
+	public void printReverseConstantSpace() {
+		reverse();
+		printList(front);
+		reverse();
+	}
+	//O(n) time O(n) space
+	public void printReverseSpace() {
+		System.out.print("Elements:");
+		printReversedSpace(front);
+		System.out.println();
+	}
+	private void printReversedSpace(ListNode curr) {
+		if(curr!=null){
+			printReversedSpace(curr.next);
+			System.out.print(" " +curr.data);
 		}
-		list.mergeSort();
-		System.out.print("After merge sort: ");
-		printList(list.front);
-		if(list.isSorted()) {
-			System.out.println("Merge Sort Worked!! The List is Now Sorted!! PASSED");
+	}
+	public void reverse() {
+		if(front!=null && front.next != null) {
+			ListNode originalFront = front;
+			while(front.next!=null) 
+				front = front.next;
+			ListNode curr = originalFront;
+			ListNode previous = null;
+			while(curr!=null) {
+				ListNode temp;
+				if(curr.next!=null) {
+					temp = curr.next.next;
+					curr.next.next = curr;
+				} else {
+					temp = null;
+				}
+				ListNode nextPrevious = curr.next;
+				//assign to the previous previous
+				curr.next = previous;
+				previous = nextPrevious;
+				curr = temp;
+			}
 		}
+		
 	}
 	private boolean isSorted() {
 		ListNode curr = front;

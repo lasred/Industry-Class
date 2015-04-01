@@ -1,8 +1,10 @@
 package binarytreestuff;
 
 import java.util.ArrayList;
+import java.util.LinkedList;
 import java.util.List;
 import java.util.NoSuchElementException;
+import java.util.Queue;
 
 
 public class IntTree {
@@ -11,6 +13,27 @@ public class IntTree {
 	public IntTree() {
 		overallRoot = null;
 	}
+	//print a binary tree level by level
+	public void printByLevel() {
+		System.out.print("Elements By Level:");
+		if(overallRoot!= null) {
+			//for breadth first search
+			Queue<IntTreeNode> bfs = new LinkedList<IntTreeNode>();
+			bfs.add(overallRoot);
+			while(!bfs.isEmpty()) {
+				IntTreeNode root = bfs.remove();
+				System.out.print(" " + root.data);
+				//enqueue left
+				if(root.left!=null) 
+					bfs.add(root.left);
+				if(root.right!=null)
+					bfs.add(root.right);
+			}
+		}
+		System.out.println();
+	}
+
+	
 	public int secondMaximum() {
 		return secondMaximum(overallRoot);
 	}
