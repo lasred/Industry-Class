@@ -22,11 +22,15 @@ public class SetCardTest {
 	}
 	
 	@Test 
-	public void testInvaldSet() {
+	public void testInvaldSets() {
 		SetCard card1 = new SetCard(CardColor.RED, Shape.SQUIGGLE, Shading.SOLID, CardNumber.TWO);
 		SetCard card2 = new SetCard(CardColor.GREEN, Shape.SQUIGGLE, Shading.SOLID, CardNumber.ONE);
 		SetCard card3 = new SetCard(CardColor.PURPLE, Shape.OVAL, Shading.SOLID, CardNumber.THREE);
 		assertFalse(SetCard.isSet(card1, card2, card3));
+		assertFalse(SetCard.isSet(null, card2, card1));
+		assertFalse(SetCard.isSet(null, null, null));
+
+
 	}
 
 }

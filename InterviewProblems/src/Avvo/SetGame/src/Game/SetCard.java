@@ -34,6 +34,9 @@ public class SetCard {
      }
      
 	 static boolean isSet(SetCard one, SetCard two, SetCard three) {
+		 if(one == null || two == null || three == null) {
+			 return false;
+		 }
 	     Set<CardColor> CardColors = new HashSet<CardColor>();
 	     Set<Shape> shapes = new HashSet<Shape>();
 	     Set<Shading> shadings = new HashSet<Shading>();
