@@ -8,30 +8,41 @@ import java.util.Set;
 
 public class Game {
 	public static final int STARTING_BOARD_SIZE = 12;
+	public static final int CARDS_TO_DRAW = 3;
 	private List<SetCard> board;
 	private Queue<SetCard> deck;
+	private List<Set<SetCard>> allSetsFound;
+	
+	//Todo
 	public Game(List<SetCard> deck) {
 		this.deck = new LinkedList<SetCard>();
 		board = new ArrayList<SetCard>();
 		for(SetCard setCard: deck) {
-			if(setCard == null) {
-				this.deck.add(null);
-			} else{
-				this.deck.add(setCard);
-			}
+			this.deck.add(setCard);
 		}
 		for(int i=0;i<STARTING_BOARD_SIZE;i++) {
 			board.add(this.deck.remove());
 		}
+		//removal in middle of list is more efficient
+		allSetsFound = new LinkedList<Set<SetCard>>();
 	}
-	public void takeTurn() {
+	
+	private void takeTurn() {
 		Set<SetCard> setInBoard = getSetInBoard();
 		if(setInBoard == null) {
-			
+			for(int i=0;i<CARDS_TO_DRAW;i++) {
+				board.add(deck.remove());
+			}
+		} else {
+			for(SetCard card: setInBoard) {
+				board.remove(card);
+			}
+			allSetsFound.add(setInBoard);
 		}
 	}
+	
 	/*
-	 * Will return a set in the board or null if there is no set
+	 * Requirement method - Will return a set in the board or null if there is no set
 	 */
 	public Set<SetCard> getSetInBoard() {
 		if(board != null){
@@ -54,7 +65,14 @@ public class Game {
 		return null;
 	}
 	
+	/*
+	 * Requirement method - Play the game of set, entirely from start to end and return a list
+	 *  of each valid set removed from the board
+	 */
 	public List<Set<SetCard>> playGame() {
-		return null;
+		while(!deck.isEmpty()) {
+			takeTurn();
+		}
+		return allSetsFound;
 	}
 }

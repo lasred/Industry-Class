@@ -22,10 +22,10 @@ public class SetCard{
 	     ONE, TWO, THREE;
 	} 
 	
-	 CardColor CardColor;
-     Shape shape;
-     Shading shading;
-     CardNumber number;
+	 private CardColor CardColor;
+     private Shape shape;
+     private Shading shading;
+     private CardNumber number;
      
      public SetCard(CardColor CardColor, Shape shape, Shading shading, CardNumber number) {
     	this.CardColor = CardColor;
@@ -34,6 +34,9 @@ public class SetCard{
     	this.number = number;
      }
      
+     /*
+      * Requirement method - Determine if three cards make up a set
+      */
 	 static boolean isSet(SetCard one, SetCard two, SetCard three) {
 		 if(one == null || two == null || three == null) {
 			 return false;
