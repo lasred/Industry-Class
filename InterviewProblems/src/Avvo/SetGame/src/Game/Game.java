@@ -13,7 +13,6 @@ public class Game {
 	private Queue<SetCard> deck;
 	private List<Set<SetCard>> allSetsFound;
 	
-	//Todo
 	public Game(List<SetCard> deck) {
 		this.deck = new LinkedList<SetCard>();
 		board = new ArrayList<SetCard>();
@@ -23,22 +22,23 @@ public class Game {
 		for(int i=0;i<STARTING_BOARD_SIZE;i++) {
 			board.add(this.deck.remove());
 		}
-		//removal in middle of list is more efficient
-		allSetsFound = new LinkedList<Set<SetCard>>();
+		allSetsFound = new ArrayList<Set<SetCard>>();
 	}
 	
-	private void takeTurn() {
+	private boolean takeTurn() {
 		Set<SetCard> setInBoard = getSetInBoard();
-		if(setInBoard == null) {
-			for(int i=0;i<CARDS_TO_DRAW;i++) {
-				board.add(deck.remove());
-			}
-		} else {
+		if(setInBoard != null) {
 			for(SetCard card: setInBoard) {
 				board.remove(card);
 			}
 			allSetsFound.add(setInBoard);
 		}
+		for(int i=0;i<CARDS_TO_DRAW;i++) {
+			if(!deck.isEmpty()) {
+				board.add(deck.remove());
+			}
+		}
+		return setInBoard != null;
 	}
 	
 	/*
@@ -70,8 +70,10 @@ public class Game {
 	 *  of each valid set removed from the board
 	 */
 	public List<Set<SetCard>> playGame() {
-		while(!deck.isEmpty()) {
-			takeTurn();
+		//when deck is empty, should make another attempt if set was found
+		boolean anotherAttempt = true;		
+		while(!deck.isEmpty() || anotherAttempt) {
+			anotherAttempt = takeTurn();
 		}
 		return allSetsFound;
 	}
