@@ -5,8 +5,8 @@ import java.util.Set;
 /*
  * Represents a card in the Set card game.
  */
-public class SetCard {
-	public static enum CardColor {
+public class SetCard{
+	public enum CardColor {
 		RED, GREEN, PURPLE; 
 	}
 	
@@ -21,6 +21,7 @@ public class SetCard {
 	public enum CardNumber {
 	     ONE, TWO, THREE;
 	} 
+	
 	 CardColor CardColor;
      Shape shape;
      Shading shading;

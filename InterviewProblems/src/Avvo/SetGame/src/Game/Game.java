@@ -1,14 +1,39 @@
 package Game;
+import java.util.ArrayList;
 import java.util.HashSet;
+import java.util.LinkedList;
 import java.util.List;
+import java.util.Queue;
 import java.util.Set;
 
-
 public class Game {
+	public static final int STARTING_BOARD_SIZE = 12;
+	private List<SetCard> board;
+	private Queue<SetCard> deck;
+	public Game(List<SetCard> deck) {
+		this.deck = new LinkedList<SetCard>();
+		board = new ArrayList<SetCard>();
+		for(SetCard setCard: deck) {
+			if(setCard == null) {
+				this.deck.add(null);
+			} else{
+				this.deck.add(setCard);
+			}
+		}
+		for(int i=0;i<STARTING_BOARD_SIZE;i++) {
+			board.add(this.deck.remove());
+		}
+	}
+	public void takeTurn() {
+		Set<SetCard> setInBoard = getSetInBoard();
+		if(setInBoard == null) {
+			
+		}
+	}
 	/*
 	 * Will return a set in the board or null if there is no set
 	 */
-	public static Set<SetCard> getSetInBoard(List<SetCard> board) {
+	public Set<SetCard> getSetInBoard() {
 		if(board != null){
 			//brute force solution - must try all possibilities
 			int size = board.size();
@@ -26,6 +51,10 @@ public class Game {
 				}
 			}
 		}
+		return null;
+	}
+	
+	public List<Set<SetCard>> playGame() {
 		return null;
 	}
 }

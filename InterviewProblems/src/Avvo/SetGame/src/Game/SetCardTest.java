@@ -29,8 +29,6 @@ public class SetCardTest {
 		assertFalse(SetCard.isSet(card1, card2, card3));
 		assertFalse(SetCard.isSet(null, card2, card1));
 		assertFalse(SetCard.isSet(null, null, null));
-
-
 	}
 
 }
