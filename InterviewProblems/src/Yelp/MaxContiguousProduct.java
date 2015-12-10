@@ -3,15 +3,8 @@ public class MaxContiguousProduct {
 	 public static int maxProduct(int[] sequence) {
 		 int start = sequence[0];
 	     int max = start;
-	     int hN;
-	     int hP;
-	     if(start > 0) {
-	    	 hP =  start;
-	         hN = -1;    
-	     } else {
-	    	 hP = 1;
-	         hN = start;
-	     }
+	     int hN = start > 0? -1: start;
+	     int hP = start > 0? start:1;
 	     for(int i=1;i<sequence.length;i++) {
 	    	 int eval = sequence[i];
 	         if(eval > 0) {
@@ -22,11 +15,7 @@ public class MaxContiguousProduct {
 	             hN = -1;
 	         } else {
 	             int tempHp = hP;
-	             if(hN != - 1)  {
-	            	 hP = hN * eval;
-	             } else {
-	                 hP = 1;
-	             }
+	             hP = hN == -1? 1: hN * eval;
 	             hN = tempHp * eval;
 	         }
 	         if(hP > max) { 
