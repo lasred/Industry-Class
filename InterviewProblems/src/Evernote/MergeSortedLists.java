@@ -108,6 +108,16 @@ public class MergeSortedLists {
 	            }
 	        }
         }
+        if(sortedList1.isEmpty()) {
+        	for(T value:sortedList2) {
+        		resultList.add(value);
+        	}
+        } else if(sortedList2.isEmpty()) {
+        	for(T value:sortedList1) {
+        		resultList.add(value);
+        	}
+        }
+        
     	return resultList;	    	
     }
 }
