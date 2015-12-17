@@ -55,13 +55,19 @@ public class MergeSortedLists {
                         }
                     } else {
                         resultList.add(value1);
+                        boolean hasAddedValue2 = false;
                         while(iterator1.hasNext()) {
                             T nextValue = iterator1.next();
                             if(value2.compareTo(nextValue) <= 0) {
                                 resultList.add(value2);
+                                hasAddedValue2 = true;
                             }
                             //no matter what, this needs to execute 
                             resultList.add(nextValue);
+                        }
+                        //if not added, add it now(greatest element)
+                        if(!hasAddedValue2) {
+                        	resultList.add(value2);
                         }
                     }
             } else {
@@ -76,12 +82,17 @@ public class MergeSortedLists {
                 while(iterator2.hasNext()) {
                     //add it in the middle
                     resultList.add(value2);
+                    boolean hasAddedValue1 = false;
                     while(iterator2.hasNext()) {
                         T nextValue = iterator2.next();
                         if(value1.compareTo(nextValue) <= 0) {
                             resultList.add(value1);
+                            hasAddedValue1 = true;
                         }
                         resultList.add(nextValue);
+                    }
+                    if(!hasAddedValue1) {
+                    	resultList.add(value1);
                     }
                 }
             }
