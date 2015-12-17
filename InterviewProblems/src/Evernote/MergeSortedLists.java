@@ -21,7 +21,13 @@ public class MergeSortedLists {
         Iterator<T> iterator1 = sortedList1.iterator();
         Iterator<T> iterator2 = sortedList2.iterator();
         T value1 = iterator1.next();
+        while(value1 == null) {
+        	value1 = iterator1.next();
+        }
         T value2 = iterator2.next();
+        while(value2 == null) {
+        	value2 = iterator2.next();
+        }
         while(iterator1.hasNext() && iterator2.hasNext()) {
               if(value1.compareTo(value2) <= 0) {
                   resultList.add(value1);
