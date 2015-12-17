@@ -47,55 +47,9 @@ public class MergeSortedLists {
 	        if(iterator1.hasNext() || iterator2.hasNext()) {
 	            //know there is one thing in one list, find out where it fits in the remaining list 
 	            if(iterator1.hasNext()) {
-	                    //theres at least two elements in the first list that have not been added. Only one element(value2) needs to be added from list 2
-	                    if(value2.compareTo(value1) <= 0) {
-	                        resultList.add(value2);
-	                        resultList.add(value1);
-	                        while(iterator1.hasNext()) {
-	                            resultList.add(iterator1.next());
-	                        }
-	                    } else {
-	                        resultList.add(value1);
-	                        boolean hasAddedValue2 = false;
-	                        while(iterator1.hasNext()) {
-	                            T nextValue = iterator1.next();
-	                            if(value2.compareTo(nextValue) <= 0) {
-	                                resultList.add(value2);
-	                                hasAddedValue2 = true;
-	                            }
-	                            //no matter what, this needs to execute 
-	                            resultList.add(nextValue);
-	                        }
-	                        //if not added, add it now(greatest element)
-	                        if(!hasAddedValue2) {
-	                        	resultList.add(value2);
-	                        }
-	                    }
+	            	addValueFromOneListToOther(value2, value1, iterator1, resultList);
 	            } else {
-	                if(value1.compareTo(value2) <= 0) {
-	                    //add it in front
-	                    resultList.add(value1);
-	                    resultList.add(value2);
-	                    while(iterator2.hasNext()) {
-	                        resultList.add(iterator2.next());
-	                    }
-	                }
-	                while(iterator2.hasNext()) {
-	                    //add it in the middle
-	                    resultList.add(value2);
-	                    boolean hasAddedValue1 = false;
-	                    while(iterator2.hasNext()) {
-	                        T nextValue = iterator2.next();
-	                        if(value1.compareTo(nextValue) <= 0) {
-	                            resultList.add(value1);
-	                            hasAddedValue1 = true;
-	                        }
-	                        resultList.add(nextValue);
-	                    }
-	                    if(!hasAddedValue1) {
-	                    	resultList.add(value1);
-	                    }
-	                }
+	            	addValueFromOneListToOther(value1, value2, iterator2, resultList);
 	            }
 	        } else {
 	            //need to add both
@@ -117,7 +71,34 @@ public class MergeSortedLists {
         		resultList.add(value);
         	}
         }
-        
     	return resultList;	    	
     }
+    
+    private static <T extends Comparable<T>> void addValueFromOneListToOther(T from,
+			 T to, Iterator<T> toIterator, List<T> resultList ) {
+		 //theres at least two elements in the first list that have not been added. Only one element(value2) needs to be added from list 2
+       if(from.compareTo(to) <= 0) {
+           resultList.add(from);
+           resultList.add(to);
+           while(toIterator.hasNext()) {
+               resultList.add(toIterator.next());
+           }
+       } else {
+           resultList.add(to);
+           boolean hasAddedFrom = false;
+           while(toIterator.hasNext()) {
+               T nextValue = toIterator.next();
+               if(from.compareTo(nextValue) <= 0) {
+                   resultList.add(from);
+                   hasAddedFrom = true;
+               }
+               //no matter what, this needs to execute
+               resultList.add(nextValue);
+           }
+           //if not added, add it now(greatest element)
+           if(!hasAddedFrom) {
+        	   resultList.add(from);
+           }
+       }
+	}
 }
